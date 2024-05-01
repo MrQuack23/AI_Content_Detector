@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Content Detector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #FCFFFF;
+            height: 100vh;
+        }
+        .container {
+            padding: 45px;
+        }
+        #left-container {
+            width: 20%;
+            text-align: left;
+            padding-bottom: 8%;
+        }
+        #left-container h1 {
+            font-size: 44px;
+        }
+        #left-container p {
+            font-size: 20px;
+            line-height: 2;
+        }
+        #middle-container {
+            width: 50%;
+            background-color: #fff;
+            text-align: center;
+            border: 1px solid #FCFEFF;
+            border-radius:20px;
+            padding: auto;
+            box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.1);
+        }
+        #middle-container p {
+            text-align: left;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+        #right-container {
+            width: 20%;
+            text-align: left;
+        }
+        #right-container h2 {
+            font-size: 30px;
+        }
+        #right-container p {
+            font-size: 20px;
+            line-height: 2;
+        }
+        textarea {
+            width: 90%;
+            height: 500px;
+            margin-bottom: 10px;
+            resize: none;
+            outline: none;
+            border: 1px solid #eec;
+            box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            padding: 10px;
+            font-size: 26px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            color: #fff;
+            background-color: #000;
+            font-size: 20px;
+            border-radius: 25px;
+            margin: 0 40px;
+            margin-top: 10px;
+            padding: 20px 40px;
+        }
+        h2{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="left-container">
+        <h1>AI Content Detector</h1>
+        <p> Welcome to our AI Content Detector, a convenient tool designed to assist you in discerning the origins of text content. Whether you're curious about the authenticity of an article, a piece of creative writing, or any textual content, our platform offers a reliable solution. By leveraging the power of cutting-edge technology, we employ two advanced machine learning models: <b>Naive Bayes</b> and <b>Logistic Regression</b>.</p>
+    </div>
+    <div class="container" id="middle-container">
+        <h2>Enter Text:</h2>
+        <form action='/predict' method="post">
+            <textarea id="input-text" name="text"></textarea>
+            <input type="submit" name="model" value="Naive_Bayes">
+            <input type="submit" name="model" value="Logistic_Regression">
+        </form>
+    </div>
+    <div class="container" id="right-container">
+        <h2>Results:</h2>
+        <p>{{ prediction }}</p>
+    </div>
+</body>
+</html>
