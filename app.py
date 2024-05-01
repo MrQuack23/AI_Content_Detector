@@ -8,6 +8,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.stem import WordNetLemmatizer
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.linear_model import LogisticRegression
 
 app = Flask(__name__)
 
@@ -35,7 +36,7 @@ def preprocess_text(text):
 tfidf_vectorizer = TfidfVectorizer()
 tfidf_matrix = tfidf_vectorizer.fit_transform(new_data['text'])
 
-# Naive Bayes
+# Naive Bayes && Logistic Regression
 
 data = pd.read_csv('csv_files/train_v2_drcat_02.csv')
 
@@ -48,23 +49,40 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 nb_classifier = MultinomialNB()
 nb_classifier.fit(X_train, y_train)
 
-# Predict function
-def predict(text):
+# Initialize and train the Logistic Regression classifier
+logistic_regression_model = LogisticRegression()
+logistic_regression_model.fit(X_train, y_train)
+
+# Predict NB function
+def predictNB(text):
     preprocessed_text = preprocess_text(text)
     tfidf_vector = tfidf_vectorizer.transform([preprocessed_text])
     prediction = nb_classifier.predict(tfidf_vector)
     return "AI-generated" if prediction == 1 else "Human-written"
 
+# Predict LR function
+def predictLR(text):
+    preprocessed_text = preprocess_text(text)
+    tfidf_vector = tfidf_vectorizer.transform([preprocessed_text])
+    prediction = logistic_regression_model.predict(tfidf_vector)
+    return "AI-generated" if prediction == 1 else "Human-written"
+
 # Flask routes
 @app.route('/')
 def index():
-    return render_template('file1.html')
+    return render_template('essai.html')
 
 @app.route('/predict', methods=['POST'])
-def predict_text():
+def predict_textNB():
     text = request.form['text']
-    prediction = predict(text)
-    return render_template('file1.html', prediction=prediction)
+    model = request.form['model']
+    if model == 'Naive_Bayes':
+        prediction = predictNB(text)
+        return render_template('essai.html', prediction=f"The Naive Bayes model predicted: {prediction}")
+    elif model == 'Logistic_Regression':
+        prediction = predictLR(text)
+        return render_template('essai.html', prediction=f"The Logistic Regression model predicted: {prediction}")
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -57,6 +57,7 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            margin-top: 5px;
         }
 
         input[type="submit"]:hover {
@@ -84,7 +85,8 @@
         <form action="/predict" method="POST">
             <label for="text">Enter text:</label>
             <textarea id="text" name="text" rows="4" cols="50"></textarea>
-            <input type="submit" value="Predict">
+            <input type="submit" value="Naive_Bayes">
+            <input type="submit" value="Logistic_Regression">
         </form>
         <p>{{ prediction }}</p>
     </div>
