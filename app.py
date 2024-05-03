@@ -13,10 +13,15 @@ from sklearn.linear_model import LogisticRegression
 app = Flask(__name__)
 
 # Download NLTK resources
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
+def download_nltk_resources():
+    resources = ["punkt", "stopwords", "wordnet"]
+    for resource in resources:
+        try:
+            nltk.data.find(f'tokenizers/{resource}')
+        except LookupError:
+            nltk.download(resource)
 
+download_nltk_resources()
 # Read the CSV file
 new_data = pd.read_csv('csv_files/train_v2_drcat_02.csv')
 
