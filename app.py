@@ -7,7 +7,7 @@ from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.stem import WordNetLemmatizer
 from sklearn.model_selection import train_test_split
-from sklearn.naive_bayes import MultinomialNB
+from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 
 app = Flask(__name__)
@@ -51,7 +51,7 @@ y = data['generated']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Initialize and train the Naive Bayes classifier
-nb_classifier = MultinomialNB()
+nb_classifier = GaussianNB()
 nb_classifier.fit(X_train, y_train)
 
 # Initialize and train the Logistic Regression classifier
@@ -61,8 +61,7 @@ logistic_regression_model.fit(X_train, y_train)
 # Predict NB function
 def predictNB(text):
     preprocessed_text = preprocess_text(text)
-    tfidf_vector = tfidf_vectorizer.transform([preprocessed_text])
-    prediction = nb_classifier.predict(tfidf_vector)
+    prediction = nb_classifier.predict(preprocessed_text)
     return "AI-generated" if prediction == 1 else "Human-written"
 
 # Predict LR function
@@ -78,7 +77,7 @@ def index():
     return render_template('essai.html')
 
 @app.route('/predict', methods=['POST'])
-def predict_textNB():
+def predict_text():
     text = request.form['text']
     model = request.form['model']
     if model == 'Naive_Bayes':
