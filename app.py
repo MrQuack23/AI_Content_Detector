@@ -7,6 +7,7 @@ from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.stem import WordNetLemmatizer
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 
@@ -37,22 +38,23 @@ def preprocess_text(text):
     preprocessed_text = ' '.join(tokens)
     return preprocessed_text
 
+# Apply preprocessing to the entire dataset
+new_data['text'] = new_data['text'].apply(preprocess_text)
+
 # TF-IDF vectorizer
 tfidf_vectorizer = TfidfVectorizer()
 tfidf_matrix = tfidf_vectorizer.fit_transform(new_data['text'])
 
 # Naive Bayes && Logistic Regression
 
-data = pd.read_csv('csv_files/train_v2_drcat_02.csv')
-
 X = tfidf_matrix  # Use the TF-IDF matrix obtained earlier
-y = data['generated']
+y = new_data['generated']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Initialize and train the Naive Bayes classifier
 nb_classifier = GaussianNB()
-nb_classifier.fit(X_train, y_train)
+nb_classifier.fit(X_train.toarray(), y_train)
 
 # Initialize and train the Logistic Regression classifier
 logistic_regression_model = LogisticRegression()
@@ -69,6 +71,9 @@ def predictLR(text):
     preprocessed_text = preprocess_text(text)
     tfidf_vector = tfidf_vectorizer.transform([preprocessed_text])
     prediction = logistic_regression_model.predict(tfidf_vector)
+    y_pred = logistic_regression_model.predict(X_test)
+    accuracy = accuracy_score(y_test, y_pred)
+    print(accuracy)
     return "AI-generated" if prediction == 1 else "Human-written"
 
 # Flask routes
