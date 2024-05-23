@@ -86,7 +86,6 @@ def predictLR(text):
     preprocessed_text = preprocess_text(text)
     tfidf_vector = tfidf_vectorizer.transform([preprocessed_text])
     prediction = logistic_regression_model.predict(tfidf_vector)
-    y_pred = logistic_regression_model.predict(X_test)
     print(preprocessed_text)
     print(prediction)
     return "AI-generated" if prediction == 1 else "Human-written"
