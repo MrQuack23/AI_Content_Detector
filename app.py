@@ -10,7 +10,7 @@ from nltk.stem import WordNetLemmatizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.linear_model import LogisticRegression
-from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import MultinomialNB
 from sklearn.utils import gen_batches
 
 app = Flask(__name__)
@@ -56,7 +56,7 @@ y = new_data['generated']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Initialize and train the Naive Bayes classifier
-nb_classifier = GaussianNB()
+nb_classifier = MultinomialNB()
 
 # Determine the number of batches
 n_samples = X_train.shape[0]
