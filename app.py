@@ -24,7 +24,12 @@ nb_classifier = joblib.load('naive_bayes_model.pkl')
 logistic_regression_model = joblib.load('logistic_regression_model.pkl')
 tfidf_vectorizer = joblib.load('tfidf_vectorizer.pkl')
 
-
+# Print model details
+print("Loaded Naive Bayes Classifier:", nb_classifier)
+print("Loaded Logistic Regression Model:", logistic_regression_model)
+print("Logistic Regression Intercept:", logistic_regression_model.intercept_)
+print("Logistic Regression Coefficients:", logistic_regression_model.coef_)
+print("Loaded TF-IDF Vectorizer:", tfidf_vectorizer)
 
 # Preprocess text function
 def preprocess_text(text):
