@@ -75,6 +75,6 @@ logistic_regression_model.fit(X_train, y_train)
 joblib.dump(logistic_regression_model, 'logistic_regression_model.pkl')
 
 # Save the TF-IDF vectorizer
-joblib.dump(X, 'tfidf_vectorizer.pkl')
+joblib.dump(tfidf_vectorizer, 'tfidf_vectorizer.pkl')
 
 

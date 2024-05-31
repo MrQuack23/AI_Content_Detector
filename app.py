@@ -46,15 +46,21 @@ def preprocess_text(text):
 # Predict NB function
 def predictNB(text):
     preprocessed_text = preprocess_text(text)
+    print(preprocessed_text)
     tfidf_vector = tfidf_vectorizer.transform([preprocessed_text])
+    print(tfidf_vector)
     prediction = nb_classifier.predict(tfidf_vector.toarray())
+    print(prediction)
     return "AI-generated" if prediction == 1 else "Human-written"
 
 # Predict LR function
 def predictLR(text):
     preprocessed_text = preprocess_text(text)
+    print(preprocessed_text)
     tfidf_vector = tfidf_vectorizer.transform([preprocessed_text])
+    print(tfidf_vector)
     prediction = logistic_regression_model.predict(tfidf_vector)
+    print(prediction)
     return "AI-generated" if prediction == 1 else "Human-written"
 
 # Flask routes
