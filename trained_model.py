@@ -65,16 +65,16 @@ for batch in gen_batches(n_samples, batch_size):
     nb_classifier.partial_fit(X_train[batch].toarray(), y_train[batch], np.unique(y_train))
 
 # Save the Naive Bayes model
-joblib.dump(nb_classifier, 'naive_bayes_model.pkl')
+joblib.dump(nb_classifier, 'naive_bayes_model1.pkl')
 
 # Initialize and train the Logistic Regression classifier
-logistic_regression_model = LogisticRegression()
+logistic_regression_model = LogisticRegression(solver='saga')
 logistic_regression_model.fit(X_train, y_train)
 
 # Save the Logistic Regression model
-joblib.dump(logistic_regression_model, 'logistic_regression_model.pkl')
+joblib.dump(logistic_regression_model, 'logistic_regression_model1.pkl')
 
 # Save the TF-IDF vectorizer
-joblib.dump(tfidf_vectorizer, 'tfidf_vectorizer.pkl')
+joblib.dump(tfidf_vectorizer, 'tfidf_vectorizer1.pkl')
 
 

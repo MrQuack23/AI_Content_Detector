@@ -20,9 +20,9 @@ def download_nltk_resources():
 download_nltk_resources()
 
 # Load the models and vectorizer
-nb_classifier = joblib.load('naive_bayes_model.pkl')
-logistic_regression_model = joblib.load('logistic_regression_model.pkl')
-tfidf_vectorizer = joblib.load('tfidf_vectorizer.pkl')
+nb_classifier = joblib.load('naive_bayes_model1.pkl')
+logistic_regression_model = joblib.load('logistic_regression_model1.pkl')
+tfidf_vectorizer = joblib.load('tfidf_vectorizer1.pkl')
 
 # Print model details
 print("Loaded Naive Bayes Classifier:", nb_classifier)
@@ -73,11 +73,11 @@ def predict_text():
     try:
         text = request.form['text']
         model = request.form['model']
-        if model == 'Naive_Bayes':
+        if model == 'Naive Bayes':
             prediction = predictNB(text)
-        elif model == 'Logistic_Regression':
+        elif model == 'Logistic Regression':
             prediction = predictLR(text)
-        return render_template('essai.html', prediction=f"The {model.replace('_', ' ')} model predicted: {prediction}")
+        return render_template('essai.html', prediction=f"The {model.replace('_', ' ')} model predicted: {prediction}", input_text=text)
     except Exception as e:
         print(e)
         return str(e), 500
