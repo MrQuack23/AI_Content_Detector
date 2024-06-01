@@ -11,10 +11,12 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.stem import WordNetLemmatizer
+from nltk.corpus import wordnet
+from nltk import pos_tag
 
 # Download NLTK resources
 def download_nltk_resources():
-    resources = ["punkt", "stopwords", "wordnet"]
+    resources = ["punkt", "stopwords", "wordnet", "averaged_perceptron_tagger"]
     for resource in resources:
         try:
             nltk.data.find(f'tokenizers/{resource}')
@@ -27,18 +29,31 @@ download_nltk_resources()
 new_data = pd.read_csv('csv_files/train_v2_drcat_02.csv')
 
 # Preprocess text function
+def get_wordnet_pos(treebank_tag):
+    """Converts treebank tags to wordnet tags."""
+    if treebank_tag.startswith('J'):
+        return wordnet.ADJ
+    elif treebank_tag.startswith('V'):
+        return wordnet.VERB
+    elif treebank_tag.startswith('N'):
+        return wordnet.NOUN
+    elif treebank_tag.startswith('R'):
+        return wordnet.ADV
+    else:
+        return wordnet.NOUN  # By default, NLTK's WordNetLemmatizer assumes everything is a noun.
+
 def preprocess_text(text):
     text = text.lower()
-    text = re.sub(r'[^a-zA-Z\s]', '', text)
+    text = re.sub(r'[^a-zA-Z\s]', '', text) # regex to remove special characters
     tokens = word_tokenize(text)
     stop_words = set(stopwords.words('english'))
     tokens = [word for word in tokens if word not in stop_words]
+    pos_tags = nltk.pos_tag(tokens)  # POS tagging
     lemmatizer = WordNetLemmatizer()
-    tokens = [lemmatizer.lemmatize(word) for word in tokens]
+    tokens = [lemmatizer.lemmatize(word, get_wordnet_pos(pos)) for word, pos in pos_tags]  # Lemmatization using POS tags
     preprocessed_text = ' '.join(tokens)
     return preprocessed_text
 
-# Apply preprocessing to the entire dataset
 new_data['text'] = new_data['text'].apply(preprocess_text)
 
 # TF-IDF vectorizer
