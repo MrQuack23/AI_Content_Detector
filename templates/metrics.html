@@ -1,10 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metrics</title>
+  <link rel="stylesheet" href="/static/css/metrics.css">
 </head>
 <body>
-
+  <div class="container">
+    <div id="title">
+      <h1>Comparaison between the Models metrics </h1>
+      <div class="storytelling">
+        <p>In our analysis, we meticulously evaluated the performance of three distinct models using four critical metrics: accuracy, negative binomial (nb), F1 score, and recall. By leveraging the power of visualization, we aimed to comprehensively compare the efficacy of these models across each metric. We first extracted the relevant performance data from each model, encapsulated within pickle files. These metrics were then consolidated into a single dataset, enabling us to create insightful visual representations. </p>
+      </div>
+      <br>
+      <h1>Metrics</h1>
+    </div>
+    <div class="charts-container">
+      <div class="chart-section">
+            <table>
+                <tr>
+                <th>Metric</th>
+                <th>Naive Bayes</th>
+                <th>Logistic Regression</th>
+                <th>Neural Network</th>
+                </tr>
+                <tr>
+                <td>Accuracy</td>
+                <td id="nb-accuracy">0.9563957317876433</td>
+                <td id="lr-accuracy">0.9859043604268213</td>
+                <td id="nn-accuracy">NN Accuracy</td>
+                </tr>
+                <tr>
+                <td>F1 Score</td>
+                <td id="nb-f1">0.9523946497914569</td>
+                <td id="lr-f1">0.984755663199886</td>
+                <td id="nn-f1">NN F1 Score</td>
+                </tr>
+                <tr>
+                <td>Precision</td>
+                <td id="nb-precision">0.9647435897435898</td>
+                <td id="lr-precision">0.9879931389365352</td>
+                <td id="nn-precision">NN Precision</td>
+                </tr>
+                <tr>
+                <td>Recall</td>
+                <td id="nb-recall">0.9403578528827038</td>
+                <td id="lr-recall">0.981539335416075</td>
+                <td id="nn-recall">NN Recall</td>
+                </tr>
+            </table>
+      </div>
+    </div>
+    <div class="charts-container">
+        <div class="chart-section">
+          <div class="chart-image">
+            <img src="/models_metrics/models.png" alt="Chart 1">
+          </div>
+        </div>
+        <div class="chart-section">
+            <div class="chart-description">
+              <h3>Accuracy</h3>
+              <p>The bar chart displayed on the right illustrates.</p>
+            </div>
+            <div class="chart-image">
+              <img src="m/models_metrics/accuracy.png" alt="Chart 1">
+            </div>
+        </div>
+        <div class="chart-section">
+            <div class="chart-image">
+                <img src="/models_metrics/precision.png" alt="Chart 1">
+            </div>
+            <div class="chart-description">
+              <h3>Precision</h3>
+              <p>The bar chart displayed on the right illustrates.</p>
+            </div>
+        </div>
+        <div class="chart-section">
+            <div class="chart-description">
+              <h3>F1-score</h3>
+              <p>The bar chart displayed on the right illustrates.</p>
+            </div>
+            <div class="chart-image">
+              <img src="/models_metrics/recall.png" alt="Chart 1">
+            </div>
+        </div>
+        <div class="chart-section">
+            <div class="chart-image">
+                <img src="/models_metrics/f1.png" alt="Chart 1">
+            </div>
+            <div class="chart-description">
+              <h3>Recall</h3>
+              <p>The bar chart displayed on the right illustrates.</p>
+            </div>
+        </div>
+    </div>
+  </div>
 </body>
 </html>
